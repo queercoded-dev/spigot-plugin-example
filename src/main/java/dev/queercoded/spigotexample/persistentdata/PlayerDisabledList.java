@@ -27,16 +27,19 @@ public class PlayerDisabledList implements ConfigurationSerializable {
      * This constructor is called when the data is loaded from the data file.
      */
     public PlayerDisabledList(Map<String, Object> map) {
+        // Create a new instance of this class, this calls the constructor below
         PlayerDisabledList playerDisabledList = new PlayerDisabledList();
+        // Set the disabled players list to the list in the map
         playerDisabledList.disabledPlayers = (ArrayList<String>) map.get("players");
 
-        set(playerDisabledList);
+        // We don't need to set the static instance of this class, because the constructor below will already do that.
     }
 
     /**
      * Creates a new instance of this class with an empty list
      */
     public PlayerDisabledList() {
+        // Set the static instance of this class to this instance
         set(this);
     }
 

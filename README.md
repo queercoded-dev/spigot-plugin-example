@@ -15,6 +15,9 @@ It uses our [Hackathon template](https://github.com/queercoded-dev/spigot-plugin
 - This example plugin has tab completion for the `/groundpound` command. You can find this in `commands.CommandTabComplete`
   - The Javadoc of this class explains how it works
 
+I didn't include tab completion & serialisation in the template because it's not necessary for every plugin, and is quite complicated.  
+But it's good to know how it works, so I included it here.  
+
 ### Building
 1. Run `gradlew build` in the root directory of the project.
 2. The built jar will be in `build/libs`.
