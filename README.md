@@ -1,55 +1,22 @@
-# Spigot Plugin Template
-This is a template for a simple Spigot Minecraft plugin, including permissions, commands, and listeners.  
+# Spigot Example Plugin
+This is a an example plugin that adds a ground pound to Minecraft.  
+It uses our [Hackathon template](https://github.com/queercoded-dev/spigot-plugin-template).  
 
-## How to use
-1. Press the green "Use this template" button above.  
-2. Clone the repository to your computer.
-3. Open the project in your IDE of choice.
-Change the following files, use refactoring tools to change the package name and class names if your IDE supports it. This can save many steps:
-    - [ ] `settings.gradle`
-      - [ ] Change the `rootProject.name` to the name of your plugin.
-    - [ ] `build.gradle`
-      - [ ] Change the `group` to your own domain name.
-        - If you don't have a domain name, GitHub allows use of your GitHub username like this: `io.github.<username>`
-      - [ ] Change the `version` to the version of your plugin.
-    - [ ] `src/main/java/dev/queercoded/spigottemplate`
-      - [ ] Rename/refactor this directory to your domain and the name of your plugin. Make sure this matches the `group` in `build.gradle`.
-    - [ ] `src/main/java/dev/queercoded/spigottemplate/SpigotTemplate.java`
-      - [ ] Rename/refactor this file to the name of your plugin.
-      - [ ] Change the class name and all it's references (line 9, 14, 58, 60) to the name of your plugin, if your IDE doesn't support refactoring.
-      - [ ] Change the `package` statement to your own domain name and the name of your plugin.
-      - [ ] Change the import statements for `dev.queercoded.spigottemplate` to your own domain name and the name of your plugin.
-      - [ ] If you want to register a command, change the `onEnable` method to register your command on line 35.
-      - [ ] If you want to register a listener, change the `onEnable` method to register your listener on line 38.
-    - [ ] `src/main/java/dev/queercoded/spigottemplate/command/CommandExec.java`
-      - [ ] Rename/refactor this file to the name of your command.
-      - [ ] Change the class name and all it's references (line 17)
-      - [ ] Change the `package` statement to your own domain name and the name of your plugin.
-      - You probably won't get much use out of the existing code in this file, but it serves as an example.
-    - [ ] `src/main/java/dev/queercoded/spigottemplate/listener/BlockBreakEventListener.java`
-      - [ ] Rename/refactor this file to the name of your listener.
-      - [ ] Change the class name and all it's references (line 10, 15)
-      - [ ] Change the `package` statement to your own domain name and the name of your plugin.
-      - If you want to listen to events, you can change the event it listens to by:
-        - [ ] Changing the function below `@EventHandler` annotation on line 22 to the event you want to listen to.
-          - [ ] This is done by changing argument to the `public void` method to the event you want to listen to.
-          - [ ] Rename the method to something more descriptive.
-        - We request if you listen to every event to check for a permission node of the player affected
-          - You can register a permission in the main class of this file, an example is given in `SpigotTemplate.java` on line 41.
-      - You probably won't get much use out of the existing code in this file, but it serves as an example.
-    - [ ] `src/resources/plugin.yml`
-      - [ ] Change the `name` to the name of your plugin.
-      - [ ] Change the `main` to the name of your main class.
-        - This is the class that extends `JavaPlugin` and is the entry point of your plugin.
-      - [ ] Change the `authors` to your name.
-      - [ ] Change the `description` to a description of your plugin.
-      - [ ] Change the `version` to the version of your plugin.
-      - [ ] Under `commands`, change `spigottemplate` to the name of your command.
-        - [ ] Change the `description` to a description of your command.
-        - [ ] Change the `usage` to an example of your command.
+## Noteworthy
+- You can disable the ground pound as a player with `/groundpound off` and re-enable it with `/groundpound on`
+  - This data is persistent, it is stored in a file called `data.yml` in the plugin's data folder
+  - The data is loaded when the plugin is enabled and saved when the plugin is disabled
+  - You can find how this is done in the `persistentdata.PlayerDisabledListener` class. This is loaded with `persistentdata.ExampleDataLoading`.  
+    - It uses serialisation to save the data to a file. Bukkit has a serialisation library.  
+    - The PlayerDisabledList class must be registered in the plugins main class. This is done in `SpigotExample.java` in the `static` block.  
+    - The `PlayerDisabledList` class has a `ArrayList<String>` that is serialised to a file.
+    - The constructor `Map<String, Object>` of `PlayerDisabledList` is for deserialization, this gets called when the plugin is enabled.
+    - The `serialize()` method is for serialization, this gets called when the plugin is disabled. It returns the `Map<String, Object>` that is written to a file.
+- This example plugin has tab completion for the `/groundpound` command. You can find this in `commands.CommandTabComplete`
+  - The Javadoc of this class explains how it works
 
 ### Building
 1. Run `gradlew build` in the root directory of the project.
 2. The built jar will be in `build/libs`.
 
-This template isn't a comprehensive guide to making a plugin, but it can show you the basics of how to make a plugin.
+This example adds on our template and explains how serialisation, deserialisation and tab completion works.  

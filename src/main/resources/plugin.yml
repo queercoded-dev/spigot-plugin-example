@@ -1,10 +1,10 @@
-name: SpigotTemplate
+name: SpigotExample
 version: '${version}'
-main: dev.queercoded.spigottemplate.SpigotTemplate
+main: dev.queercoded.spigotexample.SpigotExample
 api-version: 1.13
 authors: [ queercoded, diademiemi ] # Change this to your username
-description: Queer Coded template plugin, check the README!
+description: Queer Coded example plugin, check the README!
 commands:
-  spigottemplate:
-    description: Command for this plugin.
-    usage: /spigottemplate
+  groundpound:
+    description: Toggle the ground pound.
+    usage: /groundpound
