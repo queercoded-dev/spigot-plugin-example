@@ -27,38 +27,39 @@ public class CommandExec implements CommandExecutor {
 
         // Check if the sender has the permission defined earlier and is a player
         if (sender instanceof Player && sender.hasPermission("groundpound.toggle")) {
+            Player player = (Player) sender; // Cast sender to player
             // Get the list of players who have disabled ground pound
             PlayerDisabledList list = PlayerDisabledList.getList();
             if (args.length > 0) { // If arguments are given
                 switch (args[0]) {
                     case "on":
-                        list.removePlayer((Player) sender);
-                        sender.sendMessage("Ground pound enabled");
+                        list.removePlayer(player);
+                        player.sendMessage("Ground pound enabled");
                         break;
                     case "off":
-                        list.addPlayer((Player) sender);
-                        sender.sendMessage("Ground pound disabled");
+                        list.addPlayer(player);
+                        player.sendMessage("Ground pound disabled");
                         break;
                     case "toggle":
-                        if (list.containsPlayer((Player) sender)) {
-                            list.removePlayer((Player) sender);
-                            sender.sendMessage("Ground pound enabled");
+                        if (list.containsPlayer(player)) {
+                            list.removePlayer(player);
+                            player.sendMessage("Ground pound enabled");
                         } else {
-                            list.addPlayer((Player) sender);
-                            sender.sendMessage("Ground pound disabled");
+                            list.addPlayer(player);
+                            player.sendMessage("Ground pound disabled");
                         }
                         break;
                     // If none of the above, send message
                     default:
-                        sender.sendMessage("Invalid argument");
+                        player.sendMessage("Invalid argument");
                         break;
                 }
             // When no arguments are given
             } else {
-                if (list.containsPlayer((Player) sender)) {
-                    sender.sendMessage("Ground pound is currently disabled");
+                if (list.containsPlayer(player)) {
+                    player.sendMessage("Ground pound is currently disabled");
                 } else {
-                    sender.sendMessage("Ground pound is currently enabled");
+                    player.sendMessage("Ground pound is currently enabled");
                 }
             }
         } else {
