@@ -9,7 +9,7 @@ public class ExampleDataLoading {
 
     private static File dataFile;
 
-    private static YamlConfiguration data;
+    private static YamlConfiguration data; // Get the data from the data file
 
     public static void init() {
         dataFile = new File(SpigotExample.getPlugin().getDataFolder(), "data.yml"); // Set data file
@@ -23,7 +23,7 @@ public class ExampleDataLoading {
         data.set("disabledPlayers", PlayerDisabledList.getList()); // Set data. Because a serialise method is defined in PlayerDisabledList, this will serialise the object into a map.
 
         try {
-            data.save(dataFile);
+            data.save(dataFile); // Attempt to save data to file
         } catch (Exception e) {
             e.printStackTrace();
         }
