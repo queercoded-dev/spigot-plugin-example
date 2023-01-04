@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,9 +19,8 @@ public class CommandTabComplete implements TabCompleter {
      * then the command will not be auto completed.
      *
      * Since the args contains the arguments that the player has already typed, you can use that to determine
-     * what you want to return. For example, if valid arguments are "hello" and "hi" if the player has already
-     * typed "/example he" then you can return just "hello" since that is the only valid argument that starts
-     * with "he".
+     * what you want to return. Here, the options are "on", "off", and "toggle". If the player has already
+     * typed "t", then we will only return "toggle".
      *
      * @param sender  Source of the command.  For players tab-completing a
      *                command inside of a command block, this will be the player, not
@@ -32,12 +32,20 @@ public class CommandTabComplete implements TabCompleter {
      * @return
      */
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) { // Gets called every time a player types a key with this command
         if (sender instanceof Player && sender.hasPermission("groundpound.toggle")) { // Check if sender is player and has permission
             if (args.length <= 1) { // Only do this for the first argument
-                return Arrays.asList("on", "off", "toggle"); // Return the list of valid arguments
+
+                ArrayList<String> tabComplete = new ArrayList<>(); // Create a new list to store the tab complete options
+
+                for (String s : Arrays.asList("on", "off", "toggle")) { // Loop through the options
+                    if (s.startsWith(args[0])) { // If the argument starts with the argument the player has typed
+                        tabComplete.add(s); // Add it to the list
+                    }
+                }
+                return tabComplete; // Return the list
             }
         }
-        return null;
+        return null; // Return null if the sender does not have permission or the arguments are greater than 1
     }
 }
