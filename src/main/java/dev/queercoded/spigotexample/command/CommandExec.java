@@ -1,5 +1,6 @@
 package dev.queercoded.spigotexample.command;
 
+import dev.queercoded.spigotexample.persistentdata.ExampleDataLoading;
 import dev.queercoded.spigotexample.persistentdata.PlayerDisabledList;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,6 +48,23 @@ public class CommandExec implements CommandExecutor {
                         } else {
                             list.addPlayer(player);
                             player.sendMessage("Ground pound disabled");
+                        }
+                        break;
+                    case "setvelocity": // For admins
+                        if (player.hasPermission("groundpound.admin")) { // Check if the player has permission
+                            if (args.length > 1) {
+                                try {
+                                    double velocity = Double.parseDouble(args[1]);
+                                    ExampleDataLoading.getData().set("velocity", velocity);
+                                    player.sendMessage("Ground pound velocity set to " + velocity);
+                                } catch (NumberFormatException e) {
+                                    player.sendMessage("Invalid velocity");
+                                }
+                            } else {
+                                player.sendMessage("Velocity not given");
+                            }
+                        } else {
+                            player.sendMessage("You do not have permission to do that");
                         }
                         break;
                     // If none of the above, send message

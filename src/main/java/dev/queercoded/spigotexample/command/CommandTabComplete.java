@@ -33,19 +33,39 @@ public class CommandTabComplete implements TabCompleter {
      */
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) { // Gets called every time a player types a key with this command
-        if (sender instanceof Player && sender.hasPermission("groundpound.toggle")) { // Check if sender is player and has permission
+        if (sender instanceof Player) {
             if (args.length <= 1) { // Only do this for the first argument
 
                 ArrayList<String> tabComplete = new ArrayList<>(); // Create a new list to store the tab complete options
 
-                for (String s : Arrays.asList("on", "off", "toggle")) { // Loop through the options
-                    if (s.startsWith(args[0])) { // If the argument starts with the argument the player has typed
-                        tabComplete.add(s); // Add it to the list
+                if (sender.hasPermission("groundpound.toggle")) { // Check if sender is player and has permission
+                    for (String s : Arrays.asList("on", "off", "toggle")) { // Loop through the options
+                        if (s.startsWith(args[0])) { // If the argument starts with the argument the player has typed
+                            tabComplete.add(s); // Add it to the list
+                        }
                     }
+                }
+                if (sender.hasPermission("groundpound.admin")) {
+                    if ("setvelocity".startsWith(args[0])) tabComplete.add("setvelocity");
                 }
                 return tabComplete; // Return the list
             }
+
+            // For the second argument, only setvelocity is takes a second argument
+            if (args.length == 2) {
+                switch (args[0]) {
+                    case "setvelocity": // If the first argument is setvelocity
+                        if (sender.hasPermission("groundpound.admin")) { // Check if the player has permission
+                            return Arrays.asList("-7"); // Return the default value
+                        }
+                        break;
+                    // For more arguments, add more cases here
+                    default:
+                        break;
+                }
+            }
+
         }
-        return null; // Return null if the sender does not have permission or the arguments are greater than 1
+        return null; // Return null if no tab complete options are found
     }
 }

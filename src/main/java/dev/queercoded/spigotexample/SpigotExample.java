@@ -49,6 +49,7 @@ public final class SpigotExample extends JavaPlugin {
         // Register permissions
         pm.addPermission(new Permission("groundpound.groundpound")); // Permission for groundpounding
         pm.addPermission(new Permission("groundpound.toggle")); // Permission for toggling groundpounding
+        pm.addPermission(new Permission("groundpound.admin")); // Permission for configuring the velocity of groundpounding
 
         ExampleDataLoading.init(); // Create data file if it does not exist
         ExampleDataLoading.readData(); // Read data from file
